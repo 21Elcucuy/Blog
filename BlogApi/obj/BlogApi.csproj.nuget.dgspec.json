@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\WEB\\Blog\\BlogApi\\BlogApi.csproj": {}
+    "C:\\WEB\\Blog rider\\BlogApi\\BlogApi.csproj": {}
   },
   "projects": {
-    "C:\\WEB\\Blog\\BlogApi\\BlogApi.csproj": {
+    "C:\\WEB\\Blog rider\\BlogApi\\BlogApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\WEB\\Blog\\BlogApi\\BlogApi.csproj",
+        "projectUniqueName": "C:\\WEB\\Blog rider\\BlogApi\\BlogApi.csproj",
         "projectName": "BlogApi",
-        "projectPath": "C:\\WEB\\Blog\\BlogApi\\BlogApi.csproj",
-        "packagesPath": "C:\\Users\\ahmad\\.nuget\\packages\\",
-        "outputPath": "C:\\WEB\\Blog\\BlogApi\\obj\\",
+        "projectPath": "C:\\WEB\\Blog rider\\BlogApi\\BlogApi.csproj",
+        "packagesPath": "C:\\Users\\Ahmad\\.nuget\\packages\\",
+        "outputPath": "C:\\WEB\\Blog rider\\BlogApi\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\ahmad\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Ahmad\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -43,13 +43,26 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.5, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.5, )"
+            },
             "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.5, )"
+            },
+            "Microsoft.EntityFrameworkCore.InMemory": {
               "target": "Package",
               "version": "[8.0.5, )"
             },
@@ -63,9 +76,17 @@
               "target": "Package",
               "version": "[8.0.5, )"
             },
+            "Microsoft.IdentityModel.Tokens": {
+              "target": "Package",
+              "version": "[8.0.5, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
-              "version": "[6.6.2, )"
+              "version": "[8.0.5, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[8.0.5, )"
             }
           },
           "imports": [
@@ -87,7 +108,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.407/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
