@@ -2,7 +2,6 @@ using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using BlogApi.BusinessLayer.Repository;
 using BlogApi.DataLayer.Models.Domain;
 using BlogApi.Helper;
 using BlogApi.Models.Domain;
@@ -18,14 +17,14 @@ namespace BlogApi.businesslayer.Services
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IOptions<JWT> _jwt;
         private readonly RoleManager<IdentityRole> _roleManager;
-        private readonly IAuthorRepository _authorRepository;
+ 
 
-        public AuthServices(UserManager<ApplicationUser> userManager , IOptions<JWT> jwt ,RoleManager<IdentityRole> roleManager,IAuthorRepository authorRepository)
+        public AuthServices(UserManager<ApplicationUser> userManager , IOptions<JWT> jwt ,RoleManager<IdentityRole> roleManager)
         {
             this._userManager = userManager;
             this._jwt = jwt;
             _roleManager = roleManager;
-            this._authorRepository = authorRepository;
+
         }
 
         public async Task<AuthModel> RegisterUserAsync(RegisterDTO register)
@@ -54,19 +53,10 @@ namespace BlogApi.businesslayer.Services
                      UserName = register.Username,
                      FullName = register.FullName,
                      Created = DateTime.UtcNow,
-                              
+                     Followers = new List<Follower>(),
+                     Followings = new List<Following>()
                  };
-                  var Author = new Author()
-                     {
-                        UserName = user.UserName,
-                        FullName = user.FullName,
-                        Email = user.Email,
-
-                        AuthorId = user.Id,
-                        Follower = new List<Author>(),
-                        Following = new List<Author>(),
-                        
-                     };
+          
 
                 var Result = await _userManager.CreateAsync(user, register.Password);
                 if(!Result.Succeeded)
@@ -77,7 +67,6 @@ namespace BlogApi.businesslayer.Services
                         Message = "User registration failed"
                     };
                 }
-                await _authorRepository.CreateAuthorAsync(Author);
                 var jwtToken = await GetToken(user);
                return  new AuthModel()
                 {

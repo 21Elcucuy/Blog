@@ -48,13 +48,67 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "BlogApi.Controllers.AuthorController",
-    "Method": "GetAllAuthors",
-    "RelativePath": "api/Author",
+    "ContainingType": "BlogApi.Controllers.FollowingController",
+    "Method": "Follow",
+    "RelativePath": "api/Following",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "followDTO",
+        "Type": "BlogApi.DataLayer.Models.DTO.FollowDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BlogApi.Controllers.FollowingController",
+    "Method": "Unfollow",
+    "RelativePath": "api/Following",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "followDTO",
+        "Type": "BlogApi.DataLayer.Models.DTO.FollowDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BlogApi.Controllers.FollowingController",
+    "Method": "GetAllFollower",
+    "RelativePath": "api/Following/follower",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [],
+    "Parameters": [
+      {
+        "Name": "UserId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BlogApi.Controllers.FollowingController",
+    "Method": "GetAllFollowing",
+    "RelativePath": "api/Following/following",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "UserId",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": []
   },
   {

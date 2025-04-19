@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using BlogApi.DataLayer.Models.Domain;
 using Microsoft.AspNetCore.Identity;
 
 namespace BlogApi.Models.Domain
@@ -19,8 +18,7 @@ namespace BlogApi.Models.Domain
      public int Likes { get; set; }
       
     
-    //navigation
-    public Author Author { get; set; }
+   
 
     }
 }

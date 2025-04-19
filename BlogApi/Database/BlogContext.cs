@@ -1,4 +1,4 @@
-using BlogApi.DataLayer.Models.Domain;
+
 using BlogApi.Models;
 using BlogApi.Models.Domain;
 using Microsoft.EntityFrameworkCore;
@@ -13,7 +13,7 @@ public class BlogContext : DbContext
     }
 
     public DbSet<Post> Posts { get; set; }
-    public DbSet<Author> Authors { get; set; }
+
 }
 
 }

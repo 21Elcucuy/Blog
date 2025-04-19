@@ -34,7 +34,7 @@ builder.Services.AddDbContext<AuthDbContext>(options =>
 
 builder.Services.AddScoped<IPostRepository, SQLPostRepository>();
 builder.Services.AddScoped<IAuthServices, AuthServices>();
-builder.Services.AddScoped<IAuthorRepository, SQLAuthorRepository>();
+builder.Services.AddScoped<IFollowRepository , FollowRepository>();
 builder.Services.AddAuthentication(options =>
     {
         options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -66,7 +66,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>c.SwaggerEndpoint("/swagger/v1/swagger.json", "Your API"));
 }
 
 app.UseHttpsRedirection();
