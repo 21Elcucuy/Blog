@@ -1,0 +1,6 @@
+dotnet user-secrets set "EmailSettings:SenderEmail" "$1"
+dotnet user-secrets set "EmailSettings:SenderPassword" "$2"
+dotnet user-secrets set "EmailSettings:SenderName" "$3"
+dotnet user-secrets set "EmailSettings:SmtpServer" "$4"
+dotnet user-secrets set "EmailSettings:SmtpPort" "$5"
+dotnet user-secrets set "JwtSettings:SecretKey" "$6"
