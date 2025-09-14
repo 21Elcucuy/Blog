@@ -20,7 +20,8 @@ public class ResetPasswordSevices :IResetPasswordServices
 
     public async Task<bool> SendResetPasswordAsync(string Email , string Origin ,CancellationToken cancellationToken = default)
     {
-        var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Email == Email , cancellationToken );
+        //var user = await _userManager.Users.FirstOrDefaultAsync(x => x.Email == Email , cancellationToken );
+        var user = await _userManager.FindByEmailAsync(Email);
         if (user == null)
         {
             return false;

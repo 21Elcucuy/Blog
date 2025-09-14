@@ -16,7 +16,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Project.JWT;
 
-namespace Infrastructure.Services;
+namespace Application.Authentication.Services;
 
 public class AuthServices : IAuthServices
 {
