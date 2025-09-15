@@ -22,14 +22,14 @@ public class AuthServices : IAuthServices
 {
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly RoleManager<IdentityRole> _roleManager;
-    private readonly IOptions<JWT> _jwt;
+    private readonly ITokenProvider _tokenProvider;
     private readonly IConfrimEmailServices _confrimemail;
 
-    public AuthServices(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager , IOptions<JWT> jwt ,IConfrimEmailServices Confrimemail)
+    public AuthServices(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager , ITokenProvider tokenProvider ,IConfrimEmailServices Confrimemail)
     {
         _userManager = userManager;
         _roleManager = roleManager;
-        _jwt = jwt;
+        _tokenProvider = tokenProvider;
         _confrimemail = Confrimemail;
     }
     public async Task<AuthModel> LoginAsync(LoginRequest loginRequest , CancellationToken cancellationToken = default)
@@ -55,7 +55,7 @@ public class AuthServices : IAuthServices
                 Message = "Lockout Wait Until " + user.LockoutEnd.Value.UtcDateTime.ToString("u"),
             };
         }
-        var jwtToken = await GetToken(user,cancellationToken);
+        var jwtToken = await  _tokenProvider.GetToken(user);
         var roles = await _userManager.GetRolesAsync(user);
         cancellationToken.ThrowIfCancellationRequested();
         return new AuthModel()
@@ -118,7 +118,7 @@ public class AuthServices : IAuthServices
             return new AuthModel() { Message = "Somthing went Wrong", IsAuthenticated = false };
         }
         await _confrimemail.SendConfromationEmailAsync(User.Id ,"http://localhost:5140" , cancellationToken);
-        var jwtToken = await GetToken(User , cancellationToken);
+        var jwtToken = await _tokenProvider.GetToken(User , cancellationToken);
         return new AuthModel() 
             { 
                 Message = "Please Check Email", 
@@ -182,40 +182,5 @@ public class AuthServices : IAuthServices
         return "something went wrong";
     }
 
-    private async Task<JwtSecurityToken> GetToken(ApplicationUser user , CancellationToken cancellationToken = default)
-    {
-        var userClaims = await _userManager.GetClaimsAsync(user);
-        cancellationToken.ThrowIfCancellationRequested();
-        var roles = await _userManager.GetRolesAsync(user);
-        cancellationToken.ThrowIfCancellationRequested();
-        var roleClaim = new List<Claim>();
-        foreach (var role in roles)
-        {
-            roleClaim.Add(new Claim("roles", role));
-            
-        }
-        var SecurityStamp = await _userManager.GetSecurityStampAsync(user);
-         cancellationToken.ThrowIfCancellationRequested();
-         
-         
-        var Claim = new[]
-        {
-            new Claim(JwtRegisteredClaimNames.Sub, user.Id),
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()), 
-            new Claim("uid", user.Id),
-            new Claim("AspNet" +
-                      ".Identity.SecurityStamp", SecurityStamp),
-        }.Union(roleClaim).Union(userClaims);
-        
-        var SymmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwt.Value.SecretKey));
-        var SigningCredentials = new SigningCredentials(SymmetricSecurityKey, SecurityAlgorithms.HmacSha256);
-        var jwtSecurityKey = new JwtSecurityToken(
-            issuer: _jwt.Value.Issuer,
-            audience: _jwt.Value.Audience,
-            claims: Claim,
-            expires: DateTime.UtcNow.AddDays(Convert.ToDouble(_jwt.Value.DurationInDays)),
-            signingCredentials: SigningCredentials
-        );
-        return jwtSecurityKey;
-    }
+ 
 }

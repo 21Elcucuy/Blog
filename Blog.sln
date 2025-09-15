@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helper", "Helper\Helper.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Blog", "Blog\Blog.csproj", "{5F0C5E3A-6C64-4167-933A-0713D3DD72ED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{CF8AC6C4-302A-4047-A1A1-84CF82BA09F1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{5F0C5E3A-6C64-4167-933A-0713D3DD72ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5F0C5E3A-6C64-4167-933A-0713D3DD72ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5F0C5E3A-6C64-4167-933A-0713D3DD72ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF8AC6C4-302A-4047-A1A1-84CF82BA09F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF8AC6C4-302A-4047-A1A1-84CF82BA09F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF8AC6C4-302A-4047-A1A1-84CF82BA09F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF8AC6C4-302A-4047-A1A1-84CF82BA09F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
