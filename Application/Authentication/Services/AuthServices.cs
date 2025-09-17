@@ -81,10 +81,14 @@ public class AuthServices : IAuthServices
             
             if (user.EmailConfirmed == false)
             {
-                var Token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                cancellationToken.ThrowIfCancellationRequested();
-                await _confrimemail.SendConfromationEmailAsync(user.Id,Token ,cancellationToken);
-                return new AuthModel() {Message ="Please confirm your account by Chicking on Gmail" , IsAuthenticated = false};
+                 cancellationToken.ThrowIfCancellationRequested();
+                 //Change The Origin Here
+               var ConfrimationEmailResult = await _confrimemail.SendConfromationEmailAsync(user.Id,"http://localhost:5140" ,cancellationToken);
+               if (ConfrimationEmailResult == false)
+               {
+                   return SomethingWentWrongMessage();
+               }
+               return new AuthModel() {Message ="Please confirm your account by Chicking on Gmail" , IsAuthenticated = false};
             }
             return new AuthModel() { Message = "Email Already Rgisterd", IsAuthenticated = false };
 
@@ -103,21 +107,26 @@ public class AuthServices : IAuthServices
             LastName = registerRequest.LastName,
             
         };
-        var token= await _userManager.GenerateEmailConfirmationTokenAsync(User);
+      
         cancellationToken.ThrowIfCancellationRequested();
         var Result = await _userManager.CreateAsync(User, registerRequest.Password );
         cancellationToken.ThrowIfCancellationRequested();
         if (!Result.Succeeded)
-        {
-            return new AuthModel() { Message = "Somthing went Wrong", IsAuthenticated = false };
+        { 
+           return SomethingWentWrongMessage();
         }
         var AddToUserRole = await _userManager.AddToRoleAsync(User, "User");
         cancellationToken.ThrowIfCancellationRequested();
         if (!AddToUserRole.Succeeded)
         {
-            return new AuthModel() { Message = "Somthing went Wrong", IsAuthenticated = false };
+            return SomethingWentWrongMessage();
         }
-        await _confrimemail.SendConfromationEmailAsync(User.Id ,"http://localhost:5140" , cancellationToken);
+        //change The Origin Here
+        var confrimationEmailResult = await _confrimemail.SendConfromationEmailAsync(user.Id,"http://localhost:5140" ,cancellationToken);
+        if (confrimationEmailResult == false)
+        {
+            return SomethingWentWrongMessage();
+        }  
         var jwtToken = await _tokenProvider.GetToken(User , cancellationToken);
         return new AuthModel() 
             { 
@@ -182,5 +191,8 @@ public class AuthServices : IAuthServices
         return "something went wrong";
     }
 
- 
+    private AuthModel SomethingWentWrongMessage()
+    {
+        return new AuthModel() { Message = "Something went wrong", IsAuthenticated = false };
+    }
 }
